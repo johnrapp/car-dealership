@@ -12,14 +12,12 @@ app.listen(port, function () {
 	console.log(`Server listening on ${port}`);
 });
 
+app.use(express.static('public', { etag: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
 createDb().then(function(db) {
-	// const apiRouter = express.Router();
 	bindApi(app, db);
-	// app.use('/api', apiRouter);
-	app.use(express.static('public'));
 });
 
 process.on('unhandledRejection', err => console.error(err));
