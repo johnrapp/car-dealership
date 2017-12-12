@@ -1,23 +1,37 @@
-const getData = () => {
-    return require('../data.json');
-}
+const { getData, saveData } = require('./file-db');
+const getSalesOfEmployees = require('./employee-sales');
 
-const getEmployees = () => {
-    const { employees } = getData().carshop;
+const getEmployees = async () => {
+    const { employees } = await getData();
     return employees;
 };
 
-const getCarModels = () => {
-    const { carmodels } = getData().carshop;
+const getCarmodels = async () => {
+    const { carmodels } = await getData();
     return carmodels;
 };
 
-const createCarModel = () => {
-    // TODO implement
+const createCarmodel = async (inputCarmodel) => {
+    const data = await getData();
+    const { carmodels } = data;
+
+    const carmodelId = generateCarmodelId(carmodels);
+    const carmodel = {
+        id: carmodelId,
+        ...inputCarmodel
+    };
+
+    const nextData = {
+        ...data,
+        carmodels: carmodels.concat(carmodel)
+    };
+    
+    return saveData(nextData)
+        .then(() => carmodel);
 };
 
-const getTotalSales = () => {
-    const { employees, carmodels, sales } = getData().carshop;
+const getTotalSales = async () => {
+    const { employees, carmodels, sales } = await getData();
 
     const salesOfEmployees = getSalesOfEmployees(employees, carmodels, sales);
     
@@ -27,33 +41,16 @@ const getTotalSales = () => {
         });
     });
 };
- 
-// Returns map, mapping from an employee id to their sales number
-// does not guarantee a sales number for every employee, will only
-// include if they've made a sale
-const getSalesOfEmployees = (employees, carmodels, sales) => {
-    const carmodelsById = carmodels.reduce((carmodelsById, model) => {
-        carmodelsById[model.id] = model;
-        return carmodelsById;
-    }, {});
-    
-    const employeeSales = sales.reduce((employeeSales, sale) => {
-        const { employee_id, carmodel_id } = sale;
-        if (!(employee_id in employeeSales)) {
-            employeeSales[employee_id] = 0;
-        }
-        const carmodel = carmodelsById[carmodel_id];
-        employeeSales[employee_id] += carmodel.price;
-        return employeeSales;
-    }, {});
 
-    return employeeSales;
-}
+const generateCarmodelId = (carmodels) => {
+    // Assume carmodels is sorted by id
+    return carmodels[carmodels.length - 1].id + 1;
+};
 
 // Public interface
 module.exports = {
     getEmployees,
-    getCarModels,
-    createCarModel,
+    getCarmodels,
+    createCarmodel,
     getTotalSales
-}
+};
