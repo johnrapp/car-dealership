@@ -19,9 +19,9 @@ module.exports = function bindApi(app) {
             price
         } = req.body;
         
-        const carmodel = { brand, model, price };
+        const inputCarmodel = { brand, model, price };
 
-        const dbCarmodel = await db.createCarmodel(carmodel);
+        const dbCarmodel = await db.createCarmodel(inputCarmodel);
         res.json(dbCarmodel);
     });
 

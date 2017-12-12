@@ -13,9 +13,8 @@ const getCarmodels = async () => {
 
 const createCarmodel = async (inputCarmodel) => {
     const data = await getData();
-    const { carmodels } = data;
 
-    const carmodelId = generateCarmodelId(carmodels);
+    const carmodelId = generateCarmodelId(data);
     const carmodel = {
         id: carmodelId,
         ...inputCarmodel
@@ -42,7 +41,8 @@ const getTotalSales = async () => {
     });
 };
 
-const generateCarmodelId = (carmodels) => {
+const generateCarmodelId = (data) => {
+    const { carmodels } = data;
     // Assume carmodels is sorted by id
     return carmodels[carmodels.length - 1].id + 1;
 };
