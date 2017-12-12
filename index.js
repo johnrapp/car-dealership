@@ -14,3 +14,5 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 bindApi(app);
+
+process.on('unhandledRejection', err => console.error(err));
