@@ -4,7 +4,7 @@ module.exports = async function(client) {
     const { employees, carmodels, sales } = data.carshop;
 
     // The inserts will give them new IDs to make the auto increment works easily
-    // this assumes that the data is sorted by ID and that the IDs start a 1
+    // this assumes that the data is sorted by ID and that the IDs start at 1
 
     const insertEmployees = await Promise.all(employees.map(employee => {
         const { name } = employee;

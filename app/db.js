@@ -1,5 +1,3 @@
-const getSalesOfEmployees = require('./employee-sales');
-
 module.exports = function(client) {
     const getEmployees = async () => {
         const { rows: employees } = await client.query(`SELECT * FROM employees`);
@@ -23,19 +21,26 @@ module.exports = function(client) {
     const getTotalSales = async () => {
         const { rows: totalSales } = await client.query(`
             SELECT employees.*, SUM(price) AS sales FROM sales
-            JOIN carmodels ON (sales.carmodel_id = carmodels.id)
-            JOIN employees ON (sales.employee_id = employees.id)
+                JOIN carmodels ON (sales.carmodel_id = carmodels.id)
+                JOIN employees ON (sales.employee_id = employees.id)
             GROUP BY employees.id, employees.name
+            ORDER BY id
         `);
 
-        return totalSales;
+        return salesAsInt(totalSales);
     };
 
-    const generateCarmodelId = (data) => {
-        const { carmodels } = data;
-        // Assume carmodels is sorted by id
-        return carmodels[carmodels.length - 1].id + 1;
-    };
+    // For some reason the SUM(price) in the SQL query returns a string instead of int
+    // It does not do this with f.e MIN(price) but does so with AVG(price)
+    // which is wierd. This is a hack to fix it
+    function salesAsInt(totalSales) {
+        return totalSales.map(item => {
+            return {
+                ...item,
+                sales: parseInt(item.sales, 10)
+            }
+        });
+    }
 
     // Public interface
     return {
