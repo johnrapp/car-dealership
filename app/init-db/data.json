@@ -84,18 +84,18 @@
 			},
 			{
 				"id": 6,
+				"employee_id": 2,
+				"carmodel_id": 3
+			},
+			{
+				"id": 6,
 				"employee_id": 3,
 				"carmodel_id": 1
 			},
 			{
-				"id": 7,
-				"employee_id": 2,
-				"carmodel_id": 2
-			},
-			{
 				"id": 8,
 				"employee_id": 2,
-				"carmodel_id": 3
+				"carmodel_id": 2
 			}
 		]
 	}

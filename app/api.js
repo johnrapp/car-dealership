@@ -1,6 +1,4 @@
-const db = require('./db');
-
-module.exports = function bindApi(app) {
+module.exports = function bindApi(app, db) {
     app.get('/employees', async (req, res) => {
         const employees = await db.getEmployees();
         res.json(employees);

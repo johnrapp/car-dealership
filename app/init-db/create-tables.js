@@ -22,6 +22,6 @@ const tableQueries = [
     `
 ]
 
-module.exports = async function(db) {
-    return tableQueries.map(tableQuery => db.query(tableQuery));
+module.exports = async function(client) {
+    return tableQueries.map(tableQuery => client.query(tableQuery));
 };
