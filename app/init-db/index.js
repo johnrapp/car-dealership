@@ -13,7 +13,9 @@ process.on('unhandledRejection', err => console.error(err));
 
     await createTables(client);
 
-    await insertData(client)    
+    await insertData(client)
+
+    console.log('Database initialized!');
     
     await client.end()
 })();
