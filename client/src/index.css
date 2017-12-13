@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  width: calc(100% - 40px);
+  max-width: 800px;
+  margin: auto;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+@media (max-width: 750px) {
+  .links {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .link-container + .link-container {
+    margin-top: 20px;
+  }
+}
