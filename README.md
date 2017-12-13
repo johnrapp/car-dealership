@@ -1,5 +1,6 @@
 # Sofias bilhandel
-
+## Krav
+För att köra programmet krävs senaste versionen av Node och npm samt att en PostgresSQL-databas körs på standardporten 5432.
 ## Köra programmet
 För att köra en kallstart, dvs då inget annat är initialiseras, kör kommandot
 ```sh
