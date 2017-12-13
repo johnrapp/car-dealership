@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "start": "node .",
+    "init-db": "node ./app/init-db"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
+    "inquirer": "^4.0.1",
     "pg": "^7.4.0"
   }
 }

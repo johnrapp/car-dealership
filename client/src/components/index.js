@@ -9,13 +9,13 @@ export default function IndexPage() {
 			<div className='links'>
 				<div className='link-container'>
 					<Link to={'/view/employees'}>
-						<img width={320} src='static/employees.jpg'/>
+						<img width={320} src='static/employees.jpg' alt='Employees'/>
 						<div>Våra anställda</div>
 					</Link>
 				</div>
 				<div className='link-container'>
 					<Link to={'/view/carmodels'}>
-						<img width={320} src='static/carmodels.jpg'/>
+						<img width={320} src='static/carmodels.jpg' alt='Carmodels'/>
 						<div>Våra bilmodeller</div>
 					</Link>
 				</div>
