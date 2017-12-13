@@ -20,4 +20,4 @@ $ npm start
 ```
 vilket startar upp servern. Det är detta kommando som körs sedan för att starta om servern.
 
-Nu borde allt vara klart och applikationen nås på [http://localhost](http://localhost).
+Nu borde allt vara klart och applikationen nås på [http://localhost/](http://localhost/).
