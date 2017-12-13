@@ -1,11 +1,11 @@
 module.exports = function(client) {
     const getEmployees = async () => {
-        const { rows: employees } = await client.query(`SELECT * FROM employees`);
+        const { rows: employees } = await client.query(`SELECT * FROM employees ORDER BY id`);
         return employees;
     };
 
     const getCarmodels = async () => {
-        const { rows: carmodels } = await client.query(`SELECT * FROM carmodels`);
+        const { rows: carmodels } = await client.query(`SELECT * FROM carmodels ORDER BY id`);
         return carmodels;
     };
 
@@ -17,6 +17,29 @@ module.exports = function(client) {
 
         return rows[0];
     };
+
+    const carmodelExists = async (id) => {
+        const { rowCount } = await client.query(
+            `SELECT id FROM carmodels where id = $1`, [id]
+        );
+        return rowCount > 0;
+    }
+
+    const updateCarmodel = async ({ id, brand, model, price }) => {
+        const { rows } = await client.query(`
+            UPDATE carmodels
+            SET brand = $2, model = $3, price = $4
+            WHERE id = $1
+            RETURNING *`,
+            [id, brand, model, price]
+        );
+        return rows[0];
+    }
+
+    const deleteCarmodel = async ({ id }) => {
+        const { rowCount } = await client.query(`DELETE FROM carmodels WHERE id = $1`, [id]);
+        return rowCount > 0;
+    }
 
     const getTotalSales = async () => {
         const { rows: totalSales } = await client.query(`
@@ -47,6 +70,9 @@ module.exports = function(client) {
         getEmployees,
         getCarmodels,
         createCarmodel,
-        getTotalSales
+        getTotalSales,
+        carmodelExists,
+        updateCarmodel,
+        deleteCarmodel
     };
 };

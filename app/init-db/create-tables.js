@@ -23,5 +23,6 @@ const tableQueries = [
 ]
 
 module.exports = async function(client) {
-    return tableQueries.map(tableQuery => client.query(tableQuery));
+    const queries = tableQueries.map(tableQuery => client.query(tableQuery));
+    return Promise.all(queries);
 };
