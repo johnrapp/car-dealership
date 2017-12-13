@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
-    "init-db": "node ./app/init-db"
+    "init-db": "node ./app/init-db",
+    "deploy": "npm install && npm run init-db && npm start"
   },
   "repository": {
     "type": "git",
