@@ -23,7 +23,7 @@ module.exports = function carmodelsApi(app, db) {
         const inputCarmodel = req.matchedData;
 
         const carmodel = await db.createCarmodel(inputCarmodel);
-        res.json(dbCarmodel);
+        res.json(carmodel);
     });
 
     app.put('/:id', [
