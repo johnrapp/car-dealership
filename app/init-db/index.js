@@ -18,6 +18,8 @@ process.on('unhandledRejection', err => console.error(err));
     try {
         await client.connect();
     } catch(e) {
+        // Log error in case there was another reason than suggested below
+        console.log(e);
         console.log('There was an error connecting to postgres. Are you sure the credentials are correct?')
         return;
     }

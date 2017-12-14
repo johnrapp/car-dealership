@@ -14,6 +14,12 @@ const carmodelExists = (db) => [
 ];
 
 const middleWare = (req, res, next) => {
+    const requestIsJson = req.headers['content-type'] === 'application/json';
+
+    if (!requestIsJson) {
+        return res.json({ error: 'Du måste inkludera Content-Type = application/json i headern'});
+    }
+  
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
